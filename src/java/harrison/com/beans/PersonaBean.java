@@ -22,6 +22,15 @@ public class PersonaBean {
 
    private Persona persona = new Persona();
    private List<Persona> lstPersonas;
+
+    public List<Persona> getLstPersonas() {
+        return lstPersonas;
+    }
+
+    public void setLstPersonas(List<Persona> lstPersonas) {
+        this.lstPersonas = lstPersonas;
+    }
+   
     public Persona getPersona() {
         return persona;
     }

@@ -37,10 +37,10 @@ public class PersonaDAO extends DAO{
          ResultSet rs;
          try {
             this.Conectar();
-            PreparedStatement st = this.getCon().prepareCall("SELECT CODIGO,"
-                                                                   +"NOMBRE,"
-                                                                   + "SEXO"
-                                                              +"FROM PERSONA");
+            PreparedStatement st = this.getCon().prepareCall("SELECT Codigo,"
+                                                                   +" NOMBRE,"
+                                                                   + " SEXO"
+                                                              +" FROM PERSONA");
             rs = st.executeQuery();
             lista = new ArrayList();
             while(rs.next()){
