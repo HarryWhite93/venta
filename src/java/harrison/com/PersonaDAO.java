@@ -32,6 +32,21 @@ public class PersonaDAO extends DAO{
         }
     }
     
+    public void modificar(Persona persona)throws Exception{
+        try {
+            this.Conectar();
+            PreparedStatement st = this.getCon().prepareCall("UPDATE PERSONA SET NOMBRE = ?, SEXO = ? WHERE CODIGO = ?");
+            st.setString(1, persona.getNombre());
+            st.setString(2, persona.getSexo());
+            st.setInt(3, persona.getCodigo());
+            st.executeUpdate();
+        } catch (Exception e) {
+            throw e;
+        }finally{
+            this.Cerrar();
+        }
+    }
+    
     public List<Persona> listar()throws Exception{
          List<Persona> lista;
          ResultSet rs;
@@ -58,4 +73,41 @@ public class PersonaDAO extends DAO{
          return lista;
     }
     
+    public Persona leerId(Persona persona)throws Exception{
+        Persona per = null;
+        ResultSet rs;
+        try {
+            this.Conectar();
+            PreparedStatement st = this.getCon().prepareStatement("SELECT CODIGO, NOMBRE, SEXO FROM PERSONA WHERE CODIGO = ?");
+            st.setInt(1, persona.getCodigo());
+            rs = st.executeQuery();
+            while(rs.next()){
+                per = new Persona();
+                per.setCodigo(rs.getInt("codigo"));
+                per.setNombre(rs.getString("nombre"));
+                per.setSexo(rs.getString("sexo"));
+                
+            }
+        } catch (Exception e) {
+            throw e;
+        }finally{
+            this.Cerrar();
+        }
+        return  per;
+    }
+
+    public void eliminar(Persona persona)throws Exception{
+    
+        try {
+            this.Conectar();
+            PreparedStatement st = this.getCon().prepareCall("DELETE FROM PERSONA WHERE CODIGO = ?");
+            st.setInt(1, persona.getCodigo());
+            st.executeUpdate();
+        } catch (Exception e) {
+            throw e;
+        }finally{
+            this.Cerrar();
+        }
+    }
+             
 }
